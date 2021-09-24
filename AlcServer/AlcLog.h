@@ -1,9 +1,5 @@
 #pragma once
 
-LogInfo(const char* sInfo);
-LogError(const char* sError);
-LogWarning(const char* sWarning);
-
-LogInfo(const char* sInfo, ...);
-LogError(const char* sError, ...);
-LogWarning(const char* sWarning, ...);
+void LogInfo(const char* sInfo, ...);
+void LogError(const char* sError, ...);
+void LogWarning(const char* sWarning, ...);

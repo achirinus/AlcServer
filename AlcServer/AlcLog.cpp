@@ -2,20 +2,7 @@
 #include <cstdio>
 #include <cstdarg>
 
-LogInfo(const char* sInfo)
-{
-	printf("INFO: %s\n", sInfo);
-}
-LogError(const char* sError)
-{
-	printf("ERROR: %s !!!\n", sError);
-}
-LogWarning(const char* sWarning)
-{
-	printf("Warning: %s !\n", sWarning);
-}
-
-LogInfo(const char* sInfo, ...)
+void LogInfo(const char* sInfo, ...)
 {
 	printf("INFO: ");
 
@@ -28,27 +15,28 @@ LogInfo(const char* sInfo, ...)
 
 	printf("\n");
 }
-LogError(const char* sError, ...)
+void LogError(const char* sError, ...)
 {
 	printf("ERROR: ");
 
 	va_list va;
-	va_start(va, sInfo);
+	va_start(va, sError);
 
-	vprintf(sInfo, va);
+	vprintf(sError, va);
 
 	va_end(va);
 
 	printf(" !!!\n");
 }
-LogWarning(const char* sWarning, ...)
+
+void LogWarning(const char* sWarning, ...)
 {
 	printf("WARNING: ");
 
 	va_list va;
-	va_start(va, sInfo);
+	va_start(va, sWarning);
 
-	vprintf(sInfo, va);
+	vprintf(sWarning, va);
 
 	va_end(va);
 
