@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 struct AlcConnection
 {
 	void* pHandle = nullptr;
