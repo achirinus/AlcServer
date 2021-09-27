@@ -146,6 +146,8 @@
     <ClCompile Include="AlcLog.cpp" />
     <ClCompile Include="AlcServer.cpp" />
     <ClCompile Include="AlcSql.cpp" />
+    <ClCompile Include="AlcString.cpp" />
+    <ClCompile Include="AlcWindow.cpp" />
     <ClCompile Include="libs\imgui\imgui.cpp" />
     <ClCompile Include="libs\imgui\imgui_demo.cpp" />
     <ClCompile Include="libs\imgui\imgui_draw.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="AlcDefines.h" />
     <ClInclude Include="AlcLog.h" />
     <ClInclude Include="AlcSql.h" />
+    <ClInclude Include="AlcString.h" />
+    <ClInclude Include="AlcWindow.h" />
     <ClInclude Include="libs\imgui\imconfig.h" />
     <ClInclude Include="libs\imgui\imgui.h" />
     <ClInclude Include="libs\imgui\imgui_impl_dx11.h" />

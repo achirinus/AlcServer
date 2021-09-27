@@ -26,7 +26,7 @@ SQLWCHAR* GetSqlConErrorDetails(AlcConnection* pCon)
 	SQLSMALLINT nTextLength;
 	if (pCon)
 	{
-		SQLGetDiagRec(SQL_HANDLE_DBC, pCon->pHandle, 1, sOutState, &nNativeErr, sOutText, 1024, &nTextLength);
+		SQLGetDiagRec(SQL_HANDLE_DBC, pCon->m_pHandle, 1, sOutState, &nNativeErr, sOutText, 1024, &nTextLength);
 	}
 	return sOutText;
 }
@@ -46,7 +46,7 @@ SQLWCHAR* GetSqlStatementErrorDetails(AlcStatement* pStatement)
 	SQLSMALLINT nTextLength;
 	if (pStatement)
 	{
-		SQLGetDiagRec(SQL_HANDLE_STMT, pStatement->pHandle, 1, sOutState, &nNativeErr, sOutStatement, 1024, &nTextLength);
+		SQLGetDiagRec(SQL_HANDLE_STMT, pStatement->m_pHandle, 1, sOutState, &nNativeErr, sOutStatement, 1024, &nTextLength);
 	}
 	return sOutStatement;
 }
@@ -91,13 +91,13 @@ AlcConnection* GetDbConnection()
 	case SQL_SUCCESS:
 	{
 		s_pConnection = new AlcConnection;
-		s_pConnection->pHandle = hConnection;
+		s_pConnection->m_pHandle = hConnection;
 		LogInfo("Connection to database was successfull");
 	}break;
 	case SQL_SUCCESS_WITH_INFO:
 	{
 		s_pConnection = new AlcConnection;
-		s_pConnection->pHandle = hConnection;
+		s_pConnection->m_pHandle = hConnection;
 		SQLWCHAR* sDetails = GetSqlConErrorDetails(s_pConnection);
 		LogInfo("Connection to database was successfull");
 		LogWarning("%ls", sDetails);
@@ -113,7 +113,7 @@ AlcConnection* GetDbConnection()
 	case SQL_ERROR:
 	{
 		AlcConnection temp;
-		temp.pHandle = hConnection;
+		temp.m_pHandle = hConnection;
 		SQLWCHAR* sDetails = GetSqlConErrorDetails(&temp);
 
 		LogError("Database connection error!");
@@ -136,14 +136,14 @@ bool CreateSqlStatement(AlcStatement* OutStatement, wchar_t* sStatement)
 
 	if (!pCon) return false;
 
-	SQLRETURN nRet = SQLAllocHandle(SQL_HANDLE_STMT, pCon->pHandle, &OutStatement->pHandle);
+	SQLRETURN nRet = SQLAllocHandle(SQL_HANDLE_STMT, pCon->m_pHandle, &OutStatement->m_pHandle);
 	if (nRet != SQL_SUCCESS)
 	{
 		LogError("Failed to alloc SQL Statement handle");
 		return false;
 	}
 
-	nRet = SQLExecDirect(OutStatement->pHandle, sStatement, SQL_NTS);
+	nRet = SQLExecDirect(OutStatement->m_pHandle, sStatement, SQL_NTS);
 	if (nRet != SQL_SUCCESS)
 	{
 		LogError("SQL statement failed: %ls. Error: %ls", sStatement);
@@ -155,19 +155,19 @@ bool CreateSqlStatement(AlcStatement* OutStatement, wchar_t* sStatement)
 void CloseSqlStatement(AlcStatement* InStatement)
 {
 	if (!InStatement) return;
-	SQLFreeHandle(SQL_HANDLE_STMT, InStatement->pHandle);
+	SQLFreeHandle(SQL_HANDLE_STMT, InStatement->m_pHandle);
 }
 
 bool IsSqlStatementValid(AlcStatement* InStatement)
 {
 	if (!InStatement)return false;
-	return (SQLFetch(InStatement->pHandle) == SQL_SUCCESS);
+	return (SQLFetch(InStatement->m_pHandle) == SQL_SUCCESS);
 }
 
 bool GetIntFromStatement(AlcStatement* InStatement, int nCol, int* nOutInt)
 {
 	if (!InStatement) return false;
-	if (SQLGetData(InStatement->pHandle, nCol, SQL_C_SLONG, nOutInt, 0, nullptr) != SQL_SUCCESS)
+	if (SQLGetData(InStatement->m_pHandle, nCol, SQL_C_SLONG, nOutInt, 0, nullptr) != SQL_SUCCESS)
 	{
 		wchar_t* sDetails = GetSqlStatementErrorDetails(InStatement);
 		LogError("%ls", sDetails);
@@ -180,7 +180,7 @@ bool GetStringFromStatement(AlcStatement* InStatement, int nCol, wchar_t* sOutSt
 {
 	if (!InStatement) return false;
 
-	if (SQLGetData(InStatement->pHandle, nCol, SQL_C_WCHAR, sOutStr, nOutCount, nullptr) != SQL_SUCCESS)
+	if (SQLGetData(InStatement->m_pHandle, nCol, SQL_C_WCHAR, sOutStr, nOutCount, nullptr) != SQL_SUCCESS)
 	{
 		wchar_t* sDetails = GetSqlStatementErrorDetails(InStatement);
 		LogError("%ls", sDetails);

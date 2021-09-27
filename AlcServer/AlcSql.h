@@ -2,14 +2,14 @@
 
 struct AlcConnection
 {
-	void* pHandle = nullptr;
+	void* m_pHandle = nullptr;
 };
 
 AlcConnection* GetDbConnection();
 
 struct AlcStatement
 {
-	void* pHandle;
+	void* m_pHandle;
 };
 
 bool CreateSqlStatement(AlcStatement* OutStatement, wchar_t* sStatement);
