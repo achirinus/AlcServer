@@ -1,8 +1,9 @@
 #include "AlcString.h"
+#include "AlcMemory.h"
 
 namespace Alc
 {
-	int GetStringSize(const wchar_t* sIn)
+	int GetStringSize(const u16* sIn)
 	{
 		int nRet = 0;
 		if (!sIn) return nRet;
@@ -10,13 +11,23 @@ namespace Alc
 		return nRet;
 	}
 	
-	wchar_t* CopyString(const wchar_t* sIn)
+	u16* CopyString(const u16* sIn)
 	{
 		if (!sIn) return nullptr;
 		int nSize = GetStringSize(sIn);
-		wchar_t* sOut = new wchar_t[nSize + 1];
-		wchar_t* sRet = sOut;
+		u16* sOut = ALC_PUSH_TEMP_ARRAY(u16, nSize + 1);
+		u16* sRet = sOut;
 		while (*sOut++ = *sIn++);
 		return sRet;
+	}
+
+	void ToSmallString(const u16* sIn, u8* sOut)
+	{
+		do
+		{
+			u16 cWide = *sIn;
+			u8* aSmall = (u8*)&cWide;
+			*sOut++ = aSmall[0];
+		} while (*sIn++);
 	}
 }

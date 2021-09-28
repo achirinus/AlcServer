@@ -176,11 +176,11 @@ bool GetIntFromStatement(AlcStatement* InStatement, int nCol, int* nOutInt)
 	return true;
 }
 
-bool GetStringFromStatement(AlcStatement* InStatement, int nCol, wchar_t* sOutStr, int nOutCount)
+bool GetStringFromStatement(AlcStatement* InStatement, int nCol, u16* sOutStr, int nOutCount)
 {
 	if (!InStatement) return false;
 
-	if (SQLGetData(InStatement->m_pHandle, nCol, SQL_C_WCHAR, sOutStr, nOutCount, nullptr) != SQL_SUCCESS)
+	if (SQLGetData(InStatement->m_pHandle, nCol, SQL_C_WCHAR, (wchar_t*)sOutStr, nOutCount, nullptr) != SQL_SUCCESS)
 	{
 		wchar_t* sDetails = GetSqlStatementErrorDetails(InStatement);
 		LogError("%ls", sDetails);

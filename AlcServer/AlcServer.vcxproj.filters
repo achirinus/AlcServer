@@ -51,6 +51,12 @@
     <ClCompile Include="AlcString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AlcApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlcMemory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlcSql.h">
@@ -90,6 +96,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AlcString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlcApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlcMemory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

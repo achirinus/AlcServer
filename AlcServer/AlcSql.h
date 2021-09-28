@@ -1,4 +1,5 @@
 #pragma once
+#include "AlcDefines.h"
 
 struct AlcConnection
 {
@@ -20,4 +21,4 @@ bool IsSqlStatementValid(AlcStatement* InStatement);
 
 bool GetIntFromStatement(AlcStatement* InStatement, int nCol, int* nOutInt);
 
-bool GetStringFromStatement(AlcStatement* InStatement, int nCol, wchar_t* sOutStr, int nOutCount);
+bool GetStringFromStatement(AlcStatement* InStatement, int nCol, u16* sOutStr, int nOutCount);

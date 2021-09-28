@@ -1,13 +1,17 @@
 #pragma once
 
+#include "AlcDefines.h"
+
 struct AlcString
 {
-	wchar_t* m_sBuffer;
-	int m_nSize;
+	u16* m_sBuffer = nullptr;
+	s32 m_nSize = -1;
 };
 
 namespace Alc
 {
-	int GetStringSize(const wchar_t* sIn);
-	wchar_t* CopyString(const wchar_t* sIn);
+	s32 GetStringSize(const u16* sIn);
+	u16* CopyString(const u16* sIn);
+
+	void ToSmallString(const u16* sIn, u8* sOut);
 }

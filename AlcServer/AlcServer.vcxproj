@@ -143,7 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlcApp.cpp" />
     <ClCompile Include="AlcLog.cpp" />
+    <ClCompile Include="AlcMemory.cpp" />
     <ClCompile Include="AlcServer.cpp" />
     <ClCompile Include="AlcSql.cpp" />
     <ClCompile Include="AlcString.cpp" />
@@ -157,8 +159,10 @@
     <ClCompile Include="libs\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlcApp.h" />
     <ClInclude Include="AlcDefines.h" />
     <ClInclude Include="AlcLog.h" />
+    <ClInclude Include="AlcMemory.h" />
     <ClInclude Include="AlcSql.h" />
     <ClInclude Include="AlcString.h" />
     <ClInclude Include="AlcWindow.h" />
